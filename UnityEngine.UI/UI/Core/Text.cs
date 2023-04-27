@@ -5,21 +5,34 @@ namespace UnityEngine.UI
 {
     /// <summary>
     /// Labels are graphics that display text.
+    /// 将 Text 绘制显示出来
     /// </summary>
 
     [AddComponentMenu("UI/Text", 10)]
     /// <summary>
     /// The default Graphic to draw font data to screen.
+    /// 默认的图形用于将字体数据绘制到屏幕上
+    /// Text 继承了如下接口：
+    /// MaskableGraphic：表示一个可以被遮罩的图形对象，定义了一些用于处理遮罩相关逻辑的方法和属性
+    /// ILayoutElement：表示一个可以被布局系统管理的元素，定义了一些用于处理布局相关逻辑的方法和属性
     /// </summary>
     public class Text : MaskableGraphic, ILayoutElement
     {
+        // SerializeField：这是一个 Unity 引擎中的特性，用于将一个字段标记为序列化字段
+        // 意味着这个字段的值可以在 Inspector 窗口中进行编辑，并且可以在场景保存和加载的时候进行序列化和反序列化
+        // FontData：这是一个用于存储字体相关数据的类，包括字体、字号、行高、对其方式等
+        // 在这里存储了 Text 组件的字体数据，并且可以在 Inspector 窗口中进行编辑
         [SerializeField] private FontData m_FontData = FontData.defaultFontData;
 
+        // 这里代表该代码块只在 unity编辑器 中执行
 #if UNITY_EDITOR
         // needed to track font changes from the inspector
+        // 需要从 Inspector 中跟踪字体变化
         private Font m_LastTrackedFont;
 #endif
 
+        // TextArea(3, 10)：这是一个特性（Attribute），用于指定在 Inspector 窗口中显示的文本框的行列数
+        // 在这里被用于定义一个名为 m_Text 的初始化为空字符串的保护字符串变量
         [TextArea(3, 10)][SerializeField] protected string m_Text = String.Empty;
 
         private TextGenerator m_TextCache;
